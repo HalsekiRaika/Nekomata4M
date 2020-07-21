@@ -4,7 +4,7 @@ class _ClientMsg {
   final String information = "Info";
   final String caution     = "Caut";
   final String warning     = "Warn";
-  final String error       = "Err";
+  final String error       = "Err ";
 }
 
 class NekomataLogger {

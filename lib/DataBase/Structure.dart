@@ -12,7 +12,7 @@ class CacheStructure {
 
 @JsonSerializable()
 class DataBaseStructure {
-  final ObjectId id;
+  final String id;
   final String title;
   final String description;
   final String channelId;
@@ -42,4 +42,7 @@ class ThumbnailData {
   int height;
 
   ThumbnailData({this.url, this.width, this.height});
+
+  factory ThumbnailData.fromJson(Map<String, dynamic> json)
+      => _$ThumbnailDataFromJson(json);
 }

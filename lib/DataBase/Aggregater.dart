@@ -1,45 +1,47 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:Nekomata/Logger/NekomataLogger.dart';
-import 'package:mongo_dart/mongo_dart.dart';
+import 'package:http/http.dart' as http;
 
 import 'Structure.dart';
 
 class NekomataDataBase {
-
-  static final String dataBaseUrl         = "mongodb://$userName:$passWord@192.168.0.5";
-  static final Db     dataBaseHololive    = new Db(dataBaseUrl + "/Hololive");
-  static final Db     dataBaseNijisanji   = new Db(dataBaseUrl + "/Nijisanji");
-  static final Db     dataBaseAnimare     = new Db(dataBaseUrl + "/Animare");
-
-  static final pipeLine = AggregationPipelineBuilder().build();
-
-  Timer _cut_connection;
+  static final String responseServerUrl   = "http://192.168.0.5:5000/api/Raven";
+  static final String dataBaseHololive    = responseServerUrl + "/hololive/";
+  static final String dataBaseNijisanji   = responseServerUrl + "/nijisanji/";
+  static final String dataBaseAnimare     = responseServerUrl + "/animare/";
 
   Future<List<DataBaseStructure>> aggregateData(DataBase targetDataBase, String targetChannel) async {
-    List<Map<String, dynamic>> result; //= new List<Map<String, dynamic>>();
-    List<DataBaseStructure>    castedResult;
+    List<DataBaseStructure>    castedResult = new List<DataBaseStructure>();
+    String result;
 
     NekomataLogger().printInfo("Connecting...", "データベースにアクセスしています…");
 
     switch(targetDataBase) {
       case DataBase.HOLOLIVE:
-        await _connectDB(dataBaseHololive, targetChannel, "Hololive").then((value) => result);
+        result = await requestSearch(dataBaseHololive,  targetChannel);
         break;
       case DataBase.NIJISANJI:
-        await _connectDB(dataBaseNijisanji, targetChannel, "Nijisanji").then((value) => result);
+        result = await requestSearch(dataBaseNijisanji, targetChannel);
         break;
       case DataBase.ANIMARE:
-        await _connectDB(dataBaseAnimare, targetChannel, "Animare").then((value) => result);
+        result = await requestSearch(dataBaseAnimare,   targetChannel);
         break;
     }
 
     if (result?.isEmpty ?? true || result == null) {
-      NekomataLogger().printErr("Check Result", "サーバーからの返り値がありません！");
-      throw NullThrownError;
+      NekomataLogger().printErr("Check Result ", "サーバーからの返り値がありません！");
+      return null;
     }
 
-    for(Map<String, dynamic> item in result) {
+    NekomataLogger().printInfo("Refactor Result", "情報を正規化しています…");
+
+    List<dynamic> decodeObjects = jsonDecode(result) as List;
+
+    NekomataLogger().printInfo("Refactor Result", "情報の正規化が終了しました。");
+
+    for (dynamic item in decodeObjects) {
       DataBaseStructure structure = DataBaseStructure.fromJson(item);
       castedResult.add(structure);
     }
@@ -47,47 +49,18 @@ class NekomataDataBase {
     return castedResult;
   }
 
-  // ignore: missing_return
-  Future<List<Map<String, dynamic>>> _connectDB(Db targetDataBase, String collectionName, String dataBaseName) async {
-    NekomataLogger().printInfo("DB Opening...", "データベースとのアクセスを確立中。");
-
-      _connectCompleter(targetDataBase).then((value) async {
-
-        DbCollection collection = targetDataBase.collection(collectionName);
-        NekomataLogger().printInfo("Collection Info", "接続先のデータベース：$dataBaseName");
-        NekomataLogger().printInfo("Collection Info", "コレクション名　　　：$collectionName");
-        _disconnectionChecker(targetDataBase);
-
-        return await collection.aggregateToStream(pipeLine).toList();
-      });
-
-  }
-
-  Future _connectCompleter(Db targetDataBase) {
-    Completer completer = new Completer();
-    if (targetDataBase.state == State.CLOSED || targetDataBase.state == State.INIT) {
-      targetDataBase.open().then((value) => {
-        completer.complete()
-      });
-    } else {
-      completer.complete();
-    }
-    NekomataLogger().printInfo("DB Open", "データベースとのアクセスを確立。");
-    return completer.future;
-  }
-
-  void _disconnectionChecker(Db targetDataBase) {
-    if (_cut_connection != null && _cut_connection.isActive) {
-      _cut_connection.cancel();
-    } else {
-      _cut_connection = new Timer(new Duration(seconds: 5), () {
-        NekomataLogger().printCaut("DB Closed", "データベースとの接続を解除。");
-        targetDataBase.close();
-      });
-    }
-  }
-
 }
+
+  Future<String> requestSearch(String uri, String targetChannel) async {
+    String requestUri = uri + targetChannel;
+    final responseObject = await http.get(requestUri, headers: {"Content-Type": "application/json"});
+    if (responseObject.statusCode == 200) {
+      NekomataLogger().printInfo("Response!    ", "Status Code: 200 [OK]");
+      return responseObject.body;
+    } else {
+      NekomataLogger().printErr("Response!    ", "This Response is Abnormal.");
+    }
+  }
 
 enum DataBase {
   HOLOLIVE,

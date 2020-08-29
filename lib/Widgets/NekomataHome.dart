@@ -16,7 +16,7 @@ class _NekomataHome extends State<NekomataHome> {
 
   void reloadCache() async {
     if (_buffer.isNotEmpty) { _buffer.clear(); }
-    _buffer = await NekomataDataBase().aggregateData(DataBase.HOLOLIVE, Id.shirakamiFubuki);
+    _buffer = await NekomataDataBase().aggregateData(DataBase.HOLOLIVE, Id.akaiHaato);
     setState(() {
 
     });

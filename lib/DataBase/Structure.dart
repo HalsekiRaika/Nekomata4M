@@ -1,13 +1,23 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 
 part 'Structure.g.dart';
 
 @JsonSerializable()
 class CacheStructure {
-  int count;
-  bool canNotification;
-  DataBaseStructure upcomingStructure;
+  final int count;
+  final bool canNotification;
+  final DataBaseStructure upcomingStructure;
+
+  CacheStructure({
+    this.count,
+    this.canNotification,
+    this.upcomingStructure
+  });
+
+  factory CacheStructure.fromJson(Map<String, dynamic> json)
+  => _$CacheStructureFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CacheStructureToJson(this);
 }
 
 @JsonSerializable()
@@ -15,6 +25,7 @@ class DataBaseStructure {
   final String id;
   final String title;
   final String description;
+  final String videoId;
   final String channelId;
   final String channelName;
   final String publish;
@@ -25,6 +36,7 @@ class DataBaseStructure {
     this.id,
     this.title,
     this.description,
+    this.videoId,
     this.channelId,
     this.channelName,
     this.publish,
@@ -33,13 +45,14 @@ class DataBaseStructure {
   });
 
   factory DataBaseStructure.fromJson(Map<String, dynamic> json)
-      => _$StructureFromJson(json);
+      => _$DataBaseStructureFromJson(json);
 }
 
+@JsonSerializable()
 class ThumbnailData {
   String url;
-  int width;
-  int height;
+  String width;
+  String height;
 
   ThumbnailData({this.url, this.width, this.height});
 

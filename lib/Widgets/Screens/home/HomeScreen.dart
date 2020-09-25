@@ -1,3 +1,4 @@
+import 'package:Nekomata/Widgets/Action/FuncAggregate.dart';
 import 'package:Nekomata/Widgets/Screens/home/Component/ContentBody.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,6 +19,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       body: ContentBody(),
+      floatingActionButton: FuncAggregate(),
     );
   }
 }

@@ -20,6 +20,15 @@ class CacheStructure {
   Map<String, dynamic> toJson() => _$CacheStructureToJson(this);
 }
 
+class Collection {
+  final List<String> collect;
+
+  Collection({this.collect});
+
+  factory Collection.fromJson(Map<String, dynamic> json)
+  => _$CollectionFromJson(json);
+}
+
 @JsonSerializable()
 class DataBaseStructure {
   final String id;

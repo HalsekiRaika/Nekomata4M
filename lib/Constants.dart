@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // # = 0xFF
 const Color NPrimalColor = Color(0xFF85B8CB);
 const Color NSecondColor = Color(0xFFFEFCFF);
+const Color NBoxColor    = Color(0xFFD1DDDB);
 const Color NTextColor   = Color(0xFF3C4046);
 
 // Constant Padding

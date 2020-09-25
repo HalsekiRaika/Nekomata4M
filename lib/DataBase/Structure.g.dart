@@ -23,6 +23,12 @@ Map<String, dynamic> _$CacheStructureToJson(CacheStructure instance) =>
       'upcomingStructure': instance.upcomingStructure
     };
 
+Collection _$CollectionFromJson(Map<String, dynamic> json) {
+  return Collection(
+    collect : json[''] as List<String>,
+  );
+}
+
 DataBaseStructure _$DataBaseStructureFromJson(Map<String, dynamic> json) {
   return DataBaseStructure(
       id           : json['id']          as String,

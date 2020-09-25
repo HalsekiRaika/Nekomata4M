@@ -8,31 +8,66 @@ import 'Structure.dart';
 
 class NekomataDataBase {
   static final String responseServerUrl   = "http://ec2-3-91-37-39.compute-1.amazonaws.com:5000/api/Raven";
-  static final String dataBaseHololive    = responseServerUrl + "/hololive/";
-  static final String dataBaseNijisanji   = responseServerUrl + "/nijisanji/";
-  static final String dataBaseAnimare     = responseServerUrl + "/animare/";
+  static final String collectionCheckUrl  = responseServerUrl  + "/collections/";
+  static final String dataBaseHololiveC   = collectionCheckUrl +      "Hololive";
+  static final String dataBaseNijisanjiC  = collectionCheckUrl +     "Nijisanji";
+  static final String dataBaseAnimareC    = collectionCheckUrl +       "Animare";
+  static final String dataBaseHololive    = responseServerUrl  +    "/hololive/";
+  static final String dataBaseNijisanji   = responseServerUrl  +   "/nijisanji/";
+  static final String dataBaseAnimare     = responseServerUrl  +     "/animare/";
 
-  Future<List<DataBaseStructure>> aggregateData(DataBase targetDataBase, String targetChannel) async {
-    List<DataBaseStructure>    castedResult = new List<DataBaseStructure>();
+  Future<List<String>> aggregateScheduledLiver(DataBase targetDataBase) async {
+    List<String> castedResult = new List<String>();
     String result;
 
     NekomataLogger().printInfo("Connecting...  ", "データベースにアクセスしています…");
 
-    switch(targetDataBase) {
+    switch (targetDataBase) {
       case DataBase.HOLOLIVE:
-        result = await requestSearch(dataBaseHololive,  targetChannel);
+        result = await _requestSearch(dataBaseHololiveC);
         break;
       case DataBase.NIJISANJI:
-        result = await requestSearch(dataBaseNijisanji, targetChannel);
+        result = await _requestSearch(dataBaseNijisanjiC);
         break;
       case DataBase.ANIMARE:
-        result = await requestSearch(dataBaseAnimare,   targetChannel);
+        result = await _requestSearch(dataBaseAnimareC);
         break;
     }
 
-    if (result?.isEmpty ?? true || result == null) {
-      NekomataLogger().printErr("Check Result ", "サーバーからの返り値がありません！");
-      return null;
+    NekomataLogger().printInfo("Refactor Result", "情報を正規化しています…");
+
+    List<dynamic> decodeObjects = new List<dynamic>();
+    try {
+      decodeObjects = jsonDecode(result);
+    } catch (excp) {
+      NekomataLogger().printErr("Refactor Result", "情報の正規化に失敗しました。");
+    }
+
+    NekomataLogger().printInfo("Refactor Result", "情報の正規化が終了しました。");
+    for (dynamic item in decodeObjects) {
+      castedResult.add(item);
+    }
+
+    return castedResult;
+  }
+
+  Future<List<DataBaseStructure>> aggregateData(DataBase targetDataBase,
+      String targetChannel) async {
+    List<DataBaseStructure> castedResult = new List<DataBaseStructure>();
+    String result;
+
+    NekomataLogger().printInfo("Connecting...  ", "データベースにアクセスしています…");
+
+    switch (targetDataBase) {
+      case DataBase.HOLOLIVE:
+        result = await _requestSearchDetail(dataBaseHololive,  targetChannel);
+        break;
+      case DataBase.NIJISANJI:
+        result = await _requestSearchDetail(dataBaseNijisanji, targetChannel);
+        break;
+      case DataBase.ANIMARE:
+        result = await _requestSearchDetail(dataBaseAnimare,   targetChannel);
+        break;
     }
 
     NekomataLogger().printInfo("Refactor Result", "情報を正規化しています…");
@@ -53,19 +88,32 @@ class NekomataDataBase {
     return castedResult;
   }
 
-}
-
-  Future<String> requestSearch(String uri, String targetChannel) async {
-    String requestUri = uri + targetChannel;
-    final responseObject = await http.get(requestUri, headers: {"Content-Type": "application/json"});
+  Future<String> _requestSearch(String uri) async {
+    String requestUri = uri;
+    final responseObject = await http.get(
+        requestUri, headers: {"Content-Type": "application/json"});
     if (responseObject.statusCode == 200) {
       NekomataLogger().printInfo("Response!      ", "Status Code: 200 [OK]");
       return responseObject.body;
     } else {
-      NekomataLogger().printErr("Response!      ", "This Response is Abnormal.");
+      NekomataLogger().printErr(
+          "Response!      ", "This Response is Abnormal.");
     }
   }
 
+  Future<String> _requestSearchDetail(String uri, String targetChannel) async {
+    String requestUri = uri + targetChannel;
+    final responseObject = await http.get(
+        requestUri, headers: {"Content-Type": "application/json"});
+    if (responseObject.statusCode == 200) {
+      NekomataLogger().printInfo("Response!      ", "Status Code: 200 [OK]");
+      return responseObject.body;
+    } else {
+      NekomataLogger().printErr(
+          "Response!      ", "This Response is Abnormal.");
+    }
+  }
+}
 enum DataBase {
   HOLOLIVE,
   NIJISANJI,

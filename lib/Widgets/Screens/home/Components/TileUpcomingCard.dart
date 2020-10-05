@@ -45,6 +45,8 @@ class TileUpcomingCard extends StatelessWidget {
           GestureDetector(
               onTap: function,
               child: Container(
+                width: 160,
+                height: 90,
                 padding: EdgeInsets.all(NDefaultPadding / 0.9),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
@@ -65,14 +67,6 @@ class TileUpcomingCard extends StatelessWidget {
                     RichText(
                         text: TextSpan(
                             children: <TextSpan>[
-                              TextSpan(
-                                text: "$title\n",
-                                style: Theme.of(context).textTheme.button,
-                              ),
-                              TextSpan(
-                                  text: "$channelName\n",
-                                  style: Theme.of(context).textTheme.button
-                              ),
                               TextSpan(
                                   text: "$startTime\n",
                                   style: Theme.of(context).textTheme.button

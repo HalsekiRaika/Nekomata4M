@@ -1,7 +1,8 @@
 import 'package:Nekomata/DataBase/Structure.dart';
 import 'package:Nekomata/Util/CalcAiringTimeCount.dart';
 import 'package:Nekomata/Util/DateTimeFormat.dart';
-import 'package:Nekomata/Widgets/Screens/home/Component/TileUpcomingCard.dart';
+import 'package:Nekomata/Widgets/Screens/details/LiveDetailsScreen/LiveDetailsScreen.dart';
+import 'package:Nekomata/Widgets/Screens/home/Components/TileUpcomingCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -36,16 +37,18 @@ class ListCardBuilderState extends State<ListCardBuilder> {
         child: ListView.builder(
           itemBuilder: (BuildContext context, int index) {
             return TileUpcomingCard(
-                size: size,
-                imageUrl: structure[index].thumbnailData.url,
-                title: structure[index].title.substring(0, 7) + "...",
+                       size: size,
+                   imageUrl: structure[index].thumbnailData.url,
+                      title: structure[index].title.substring(0, 7) + "...",
                 channelName: structure[index].channelName.substring(0, 8) + "...",
-                startTime: DateTimeFormat().set(structure[index].startTime),
-                countDown: CalcAiringTimeCount().set(structure[index].startTime),
-                function: () {}
+                  startTime: DateTimeFormat().set(structure[index].startTime),
+                  countDown: CalcAiringTimeCount().set(structure[index].startTime),
+                   function: () {
+                         Navigator.push(context, MaterialPageRoute(builder: (context) => LiveDetailsScreen(),));
+                   }
             );
           },
-          itemCount: structure != null ? 7 : 0,
+          itemCount: structure != null ? structure.length <= 6 ? structure.length : 6 : 0,
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
         ),

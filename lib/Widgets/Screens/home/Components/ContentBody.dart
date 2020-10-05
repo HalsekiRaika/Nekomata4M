@@ -1,11 +1,10 @@
 import 'package:Nekomata/DataBase/Buffer/DataBuffer.dart';
-import 'package:Nekomata/DataBase/Structure.dart';
-import 'package:Nekomata/Widgets/Screens/home/Component/ListCardBuilder.dart';
+import 'package:Nekomata/Widgets/Screens/details/ViewDetailsScreen/ViewDetailsScreen.dart';
+import 'package:Nekomata/Widgets/Screens/home/Components/ListCardBuilder.dart';
 import 'package:flutter/material.dart';
 
 // Components
 import 'HeaderSearchBox.dart';
-import 'TileUpcomingCard.dart';
 import 'TitleWithViewButtonComp.dart';
 
 class ContentBody extends StatelessWidget {
@@ -16,7 +15,11 @@ class ContentBody extends StatelessWidget {
       child: Column(
         children: <Widget>[
           HeaderSearchBox(size: size),
-          TitleWithViewButton(text: "Airing Soon", function: (){}),
+          TitleWithViewButton(text: "Airing Soon",
+              function: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ViewDetailsScreen(),)
+              );
+          }),
           ListCardBuilder(size: size, structure: DataBuffer.structureList),
         ],
       )

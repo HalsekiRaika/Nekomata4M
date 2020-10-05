@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'Structure.dart';
 
 class NekomataDataBase {
-  static final String responseServerUrl   = "http://ec2-3-91-37-39.compute-1.amazonaws.com:5000/api/Raven";
+  static final String responseServerUrl   = "http://ec2-18-210-220-130.compute-1.amazonaws.com:5000/api/Raven";
   static final String collectionCheckUrl  = responseServerUrl  + "/collections/";
   static final String dataBaseHololiveC   = collectionCheckUrl +      "Hololive";
   static final String dataBaseNijisanjiC  = collectionCheckUrl +     "Nijisanji";

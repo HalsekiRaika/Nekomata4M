@@ -29,6 +29,11 @@ dependencies:
   intl: ^0.16.1
   http: ^0.12.2
   json_annotation: ^3.1.0
+  url_launcher: ^5.7.5
+  flutter_bloc: ^6.0.6
+  path_provider: ^1.6.21
+  provider: ^4.3.2+2
+  bloc: ^6.1.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -45,8 +50,11 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   assets:
+    - assets/NekomataF.svg
     - assets/icons/menubutton.svg
     - assets/images/NotFound.jpg
+    - assets/logo/Hololive_Logo.png
+    - assets/logo/Nijisanji_Logo.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

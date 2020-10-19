@@ -37,6 +37,33 @@ class TitleWithViewButton extends StatelessWidget {
   }
 }
 
+class TitleWithLineLeftSide extends StatelessWidget {
+  const TitleWithLineLeftSide({
+    Key key,
+    @required this.text,
+    @required this.height
+  }) : super(key: key);
+
+  final String text;
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: NDefaultPadding * 1),
+        child: Row(
+          children: <Widget>[
+            CustomTitle(text: text),
+            Spacer()
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class CustomTitle extends StatelessWidget {
   const CustomTitle({
     Key key,

@@ -21,13 +21,6 @@ class ListCardBuilderState extends State<ListCardBuilder> {
   final Size size;
   final List<DataBaseStructure> structure;
 
-
-  @override
-  void initState() {
-    reload();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -48,15 +41,15 @@ class ListCardBuilderState extends State<ListCardBuilder> {
                    }
             );
           },
-          itemCount: structure != null ? structure.length <= 6 ? structure.length : 6 : 0,
+          itemCount: _itemCounter(structure),
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
         ),
       ),
     );
   }
-
-  void reload() {
-    setState(() {});
+  
+  int _itemCounter(List<DataBaseStructure> structure) {
+    return structure != null ? structure.length <= 6 ? structure.length : 6 : 0;
   }
 }

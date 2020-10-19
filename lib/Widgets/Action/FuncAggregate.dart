@@ -1,8 +1,5 @@
 import 'package:Nekomata/Constants.dart';
-import 'package:Nekomata/DataBase/Aggregater.dart';
-import 'package:Nekomata/DataBase/Buffer/DataBuffer.dart';
-import 'package:Nekomata/Logger/NekomataLogger.dart';
-import 'package:Nekomata/Widgets/Screens/home/Components/ListCardBuilder.dart';
+import 'package:Nekomata/DataBase/Provider/DataStreamProvider.dart';
 import 'package:flutter/material.dart';
 
 class FuncAggregate extends StatelessWidget {
@@ -16,12 +13,14 @@ class FuncAggregate extends StatelessWidget {
       backgroundColor: NPrimalColor,
       child: Icon(Icons.autorenew),
       onPressed: (){
-        _requestUpcomingSearch();
+        DataStreamProvider().aggregateRaw(DataBase.NIJISANJI);
+        //requestUpcomingSearch();
       },
     );
   }
-
-  void _requestUpcomingSearch() async {
+/*
+  void requestUpcomingSearch() async {
+    //final UpcomingObjectController bloc = NekomataProvider.of(context).blocUpcoming;
     DataBuffer.structureList.clear();
     List<String> scheduledLiver = await NekomataDataBase().aggregateScheduledLiver(DataBase.NIJISANJI);
     NekomataLogger().printInfo("Detect Live    ", "${scheduledLiver.length} 個のチャンネルがライブをスケジュールしています。");
@@ -29,6 +28,8 @@ class FuncAggregate extends StatelessWidget {
       DataBuffer.structureList.addAll(await NekomataDataBase().aggregateData(DataBase.NIJISANJI, item));
     }
     NekomataLogger().printInfo("Store Cache    ", "格納しました。 [ ${DataBuffer.structureList.length} ]/Num of ScheduledLive");
-    ListCardBuilderState().initState();
+    //bloc.effundam(DataBuffer.structureList);
   }
+
+ */
 }

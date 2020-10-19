@@ -1,7 +1,8 @@
-import 'package:Nekomata/Widgets/Screens/home/HomeScreen.dart';
+import 'package:Nekomata/Widgets/Router/NekomataRouter.dart';
 import 'package:Nekomata/Constants.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:Nekomata/Widgets/Screens/splash/SplashScreen.dart';
 import 'package:flutter/material.dart';
+
 
 void main() {
   runApp(Nekomata());
@@ -17,7 +18,8 @@ class Nekomata extends StatelessWidget {
         textTheme: Theme.of(context).textTheme.apply(bodyColor: NTextColor),
         visualDensity: VisualDensity.adaptivePlatformDensity
       ),
-      home: HomeScreen(),
+      routes: NekomataRouter().routes,
+      home: SplashScreen()
     );
   }
 }

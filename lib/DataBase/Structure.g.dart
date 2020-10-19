@@ -31,7 +31,7 @@ Collection _$CollectionFromJson(Map<String, dynamic> json) {
 
 DataBaseStructure _$DataBaseStructureFromJson(Map<String, dynamic> json) {
   return DataBaseStructure(
-      id           : json['id']          as String,
+      id           : json['_id']         as String,
       title        : json['title']       as String,
       description  : json['description'] as String,
       videoId      : json['videoId']     as String,
@@ -44,7 +44,7 @@ DataBaseStructure _$DataBaseStructureFromJson(Map<String, dynamic> json) {
           : ThumbnailData.fromJson(
               json['thumbnail'] as Map<String, dynamic>));
 }
-
+/*
 Map<String, dynamic> _$DataBaseStructureToJson(DataBaseStructure instance) =>
     <String, dynamic>{
       'id'           : instance.id,
@@ -56,17 +56,18 @@ Map<String, dynamic> _$DataBaseStructureToJson(DataBaseStructure instance) =>
       'startTime'    : instance.startTime,
       'thumbnailData': instance.thumbnailData
     };
-
+*/
 ThumbnailData _$ThumbnailDataFromJson(Map<String, dynamic> json) {
   return ThumbnailData(
       url   : json['url']    as String,
       width : json['width']  as String,
       height: json['height'] as String);
 }
-
+/*
 Map<String, dynamic> _$ThumbnailDataToJson(ThumbnailData instance) =>
     <String, dynamic>{
       'url'   : instance.url,
       'width' : instance.width,
       'height': instance.height
     };
+*/

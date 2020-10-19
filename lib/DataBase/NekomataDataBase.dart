@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:Nekomata/DataBase/Provider/APIProvider.dart';
 import 'package:Nekomata/Logger/NekomataLogger.dart';
-import 'package:http/http.dart' as http;
+//import 'package:http/http.dart' as http;
 
 import 'Structure.dart';
 
+@Deprecated("Specification Changed.")
 class NekomataDataBase {
   static final String responseServerUrl   = "http://ec2-18-210-220-130.compute-1.amazonaws.com:5000/api/Raven";
   static final String collectionCheckUrl  = responseServerUrl  + "/collections/";
@@ -20,21 +22,17 @@ class NekomataDataBase {
     List<String> castedResult = new List<String>();
     String result;
 
-    NekomataLogger().printInfo("Connecting...  ", "データベースにアクセスしています…");
-
     switch (targetDataBase) {
       case DataBase.HOLOLIVE:
-        result = await _requestSearch(dataBaseHololiveC);
+        result = await APIProvider.requestSearch(RequestType.ONLY_LIVER, dataBaseHololiveC);
         break;
       case DataBase.NIJISANJI:
-        result = await _requestSearch(dataBaseNijisanjiC);
+        result = await APIProvider.requestSearch(RequestType.ONLY_LIVER, dataBaseNijisanjiC);
         break;
       case DataBase.ANIMARE:
-        result = await _requestSearch(dataBaseAnimareC);
+        result = await APIProvider.requestSearch(RequestType.ONLY_LIVER, dataBaseAnimareC);
         break;
     }
-
-    NekomataLogger().printInfo("Refactor Result", "情報を正規化しています…");
 
     List<dynamic> decodeObjects = new List<dynamic>();
     try {
@@ -43,7 +41,7 @@ class NekomataDataBase {
       NekomataLogger().printErr("Refactor Result", "情報の正規化に失敗しました。");
     }
 
-    NekomataLogger().printInfo("Refactor Result", "情報の正規化が終了しました。");
+    //NekomataLogger().printInfo("Refactor Result", "情報の正規化が終了しました。");
     for (dynamic item in decodeObjects) {
       castedResult.add(item);
     }
@@ -56,21 +54,17 @@ class NekomataDataBase {
     List<DataBaseStructure> castedResult = new List<DataBaseStructure>();
     String result;
 
-    NekomataLogger().printInfo("Connecting...  ", "データベースにアクセスしています…");
-
     switch (targetDataBase) {
       case DataBase.HOLOLIVE:
-        result = await _requestSearchDetail(dataBaseHololive,  targetChannel);
+        result = await APIProvider.requestSearch(RequestType.DETAILS, dataBaseHololive, targetChannel);
         break;
       case DataBase.NIJISANJI:
-        result = await _requestSearchDetail(dataBaseNijisanji, targetChannel);
+        result = await APIProvider.requestSearch(RequestType.DETAILS, dataBaseNijisanji, targetChannel);
         break;
       case DataBase.ANIMARE:
-        result = await _requestSearchDetail(dataBaseAnimare,   targetChannel);
+        result = await APIProvider.requestSearch(RequestType.DETAILS, dataBaseAnimare, targetChannel);
         break;
     }
-
-    NekomataLogger().printInfo("Refactor Result", "情報を正規化しています…");
 
     List<dynamic> decodeObjects = new List<dynamic>();
     try {
@@ -79,39 +73,12 @@ class NekomataDataBase {
       NekomataLogger().printErr("Refactor Result", "情報の正規化に失敗しました。");
     }
 
-    NekomataLogger().printInfo("Refactor Result", "情報の正規化が終了しました。");
     for (Map<dynamic, dynamic> item in decodeObjects) {
       DataBaseStructure structure = DataBaseStructure.fromJson(item);
       castedResult.add(structure);
     }
 
     return castedResult;
-  }
-
-  Future<String> _requestSearch(String uri) async {
-    String requestUri = uri;
-    final responseObject = await http.get(
-        requestUri, headers: {"Content-Type": "application/json"});
-    if (responseObject.statusCode == 200) {
-      NekomataLogger().printInfo("Response!      ", "Status Code: 200 [OK]");
-      return responseObject.body;
-    } else {
-      NekomataLogger().printErr(
-          "Response!      ", "This Response is Abnormal.");
-    }
-  }
-
-  Future<String> _requestSearchDetail(String uri, String targetChannel) async {
-    String requestUri = uri + targetChannel;
-    final responseObject = await http.get(
-        requestUri, headers: {"Content-Type": "application/json"});
-    if (responseObject.statusCode == 200) {
-      NekomataLogger().printInfo("Response!      ", "Status Code: 200 [OK]");
-      return responseObject.body;
-    } else {
-      NekomataLogger().printErr(
-          "Response!      ", "This Response is Abnormal.");
-    }
   }
 }
 enum DataBase {

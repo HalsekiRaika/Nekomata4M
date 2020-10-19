@@ -4,8 +4,9 @@ import 'package:Nekomata/Util/CalcAiringTimeCount.dart';
 import 'package:Nekomata/Util/DateTimeFormat.dart';
 import 'package:Nekomata/Widgets/Screens/details/LiveDetailsScreen/LiveDetailsScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'TileUpcomingCard.dart';
+import '../TileUpcomingCard.dart';
 
 class StreamDisplayCard extends StatefulWidget {
   @override
@@ -19,10 +20,40 @@ class StreamDisplayBLoC extends State<StreamDisplayCard> {
 
   @override
   Widget build(BuildContext context) {
-    //final LiveDataController bloc = Provider.of(context);
+    final List<DataBaseStructure> snapshot = Provider.of<List<DataBaseStructure>>(context);
+    //print(snapshot[0].title);
+    return SingleChildScrollView(
+      child: SizedBox(
+        height: 200,
+        child: ListView.builder(
+          itemBuilder: (BuildContext context, int index) {
+            return TileUpcomingCard(
+                size: size,
+                imageUrl: snapshot[index].thumbnailData.url,
+                title: snapshot[index].title.substring(0, 7) + "...",
+                channelName: snapshot[index].channelName.substring(0, 8) + "...",
+                startTime: DateTimeFormat().set(snapshot[index].startTime),
+                countDown: CalcAiringTimeCount().set(snapshot[index].startTime),
+                function: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => LiveDetailsScreen(),));
+                }
+            );
+          },
+          itemCount: snapshot != null ? snapshot.length <= 6 ? snapshot.length : 6 : 1,
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+        ),
+      ),
+    );
+
+
+
+    //final LiveDataController bloc = Provider.of<LiveDataController>(context);
+    /*
     return StreamBuilder<List<DataBaseStructure>>(
-      stream: LiveDataController().effundam,
+      stream: bloc.effundam,
       builder: (context, AsyncSnapshot<List<DataBaseStructure>> snapshot) {
+        /*
         if (snapshot == null) {
           print("object is null");
           return SizedBox(
@@ -30,6 +61,7 @@ class StreamDisplayBLoC extends State<StreamDisplayCard> {
             child: CircularProgressIndicator(),
           );
         }
+        */
         return SingleChildScrollView(
           child: SizedBox(
             height: 200,
@@ -55,5 +87,12 @@ class StreamDisplayBLoC extends State<StreamDisplayCard> {
         );
       }
     );
+    */
+  }
+
+  @override
+  void dispose() {
+    LiveDataController().dispose();
+    super.dispose();
   }
 }

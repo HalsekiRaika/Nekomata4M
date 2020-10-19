@@ -7,6 +7,8 @@ class _ClientMsg {
   final String error       = "Err ";
 }
 
+// It will be Deprecated. XP
+
 class NekomataLogger {
   void printInfo(String status, String msg) {
     _logger(_ClientMsg().information, status, msg);

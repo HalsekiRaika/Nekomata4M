@@ -14,8 +14,8 @@ enum DataBase {
 }
 
 class DataStreamProvider {
-  void aggregateRaw(DataBase dataBase) {
-    switch(dataBase) {
+  void aggregateRaw(DataBase database) {
+    switch(database) {
       case DataBase.HOLOLIVE:
         _liveSearch(RequestURL.COLLECTION_HOLOLIVE, RequestURL.DATABASE_HOLOLIVE);
         break;

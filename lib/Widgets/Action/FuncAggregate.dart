@@ -18,18 +18,4 @@ class FuncAggregate extends StatelessWidget {
       },
     );
   }
-/*
-  void requestUpcomingSearch() async {
-    //final UpcomingObjectController bloc = NekomataProvider.of(context).blocUpcoming;
-    DataBuffer.structureList.clear();
-    List<String> scheduledLiver = await NekomataDataBase().aggregateScheduledLiver(DataBase.NIJISANJI);
-    NekomataLogger().printInfo("Detect Live    ", "${scheduledLiver.length} 個のチャンネルがライブをスケジュールしています。");
-    for (String item in scheduledLiver) {
-      DataBuffer.structureList.addAll(await NekomataDataBase().aggregateData(DataBase.NIJISANJI, item));
-    }
-    NekomataLogger().printInfo("Store Cache    ", "格納しました。 [ ${DataBuffer.structureList.length} ]/Num of ScheduledLive");
-    //bloc.effundam(DataBuffer.structureList);
-  }
-
- */
 }

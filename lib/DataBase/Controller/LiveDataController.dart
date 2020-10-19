@@ -31,18 +31,14 @@ class LiveDataController {
           print("Streamed ${eventObj.title}");
         }
         capturam.add(event);
-        /*
-        if (CalcAiringTimeCount().set(event.startTime) != null) {
-          count++;
-          buf.add(event);
-          if (count < 6) {
-            capturam.add(buf);
-            count = 0;
-            buf.clear();
-          }
-        }*/
       }
     );
+
+    //effundam.listen((event) { });
+  }
+
+  void dataSearch(DataBase database) {
+    DataStreamProvider().aggregateRaw(database);
   }
   
   void dispose() {

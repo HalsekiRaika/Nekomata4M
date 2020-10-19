@@ -81,6 +81,7 @@ class NekomataDataBase {
     return castedResult;
   }
 }
+@Deprecated("Specification Changed.")
 enum DataBase {
   HOLOLIVE,
   NIJISANJI,

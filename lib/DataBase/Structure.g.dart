@@ -8,9 +8,11 @@ part of 'Structure.dart';
 
 CacheStructure _$CacheStructureFromJson(Map<String, dynamic> json) {
   return CacheStructure(
-      count            : json['count']             as int,
-      canNotification  : json['canNotification']   as bool,
-      upcomingStructure: json['upcomingStructure'] == null
+      databaseId       : json['database_id']        as int,
+      count            : json['notify_count']       as int,
+      canNotification  : json['can_notification']   == 1 ? true : false,
+      type             : json['db_type'].toString().getTypeFromString(),
+      upcomingStructure: json['upcoming_structure'] == null
           ? null
           : DataBaseStructure.fromJson(
               json['upcomingStructure'] as Map<String, dynamic>));
@@ -18,9 +20,11 @@ CacheStructure _$CacheStructureFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$CacheStructureToJson(CacheStructure instance) =>
     <String, dynamic>{
-      'count'            : instance.count,
-      'canNotification'  : instance.canNotification,
-      'upcomingStructure': instance.upcomingStructure
+      'database_id'       : instance.databaseId,
+      'notify_count'      : instance.count,
+      'can_notification'  : instance.canNotification ? 1 : 0,
+      'db_type'           : instance.type.getStringProperty,
+      'upcoming_structure': instance.upcomingStructure
     };
 
 Collection _$CollectionFromJson(Map<String, dynamic> json) {

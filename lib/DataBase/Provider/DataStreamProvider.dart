@@ -13,6 +13,24 @@ enum DataBase {
   ANIMARE
 }
 
+extension TypeUtil on DataBase {
+  static final _typeNames = {
+    DataBase.HOLOLIVE:  "Hololive",
+    DataBase.NIJISANJI: "Nijisanji",
+    DataBase.ANIMARE:   "AniMare"
+  };
+
+  String get getStringProperty => _typeNames[this];
+}
+
+extension StringUtil on String {
+  DataBase getTypeFromString() {
+    DataBase dbType;
+    TypeUtil._typeNames.forEach((key, value) { if(this == value) {dbType = key;} });
+    return dbType;
+  }
+}
+
 class DataStreamProvider {
   void aggregateRaw(DataBase database) {
     switch(database) {
@@ -53,7 +71,7 @@ class DataStreamProvider {
     for (String targetChannel in requestArray) {
       rawDataArray.add(await APIProvider.requestSearch(RequestType.DETAILS, searchUrl, targetChannel));
     }
-    LiveDataController().rawCapturam.add(rawDataArray);
+    LiveDataController().rawEffundam.add(rawDataArray);
   }
 
 }

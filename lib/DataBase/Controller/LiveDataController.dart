@@ -14,26 +14,25 @@ class LiveDataController {
   Stream<bool>       get cancelEffundam => cancelController.stream;
   StreamSink<bool>   get cancelCapturam => cancelController.sink;
 
-  Stream<List<String>>     get rawEffundam    => rawController.stream;
-  StreamSink<List<String>> get rawCapturam    => rawController.sink;
+  Stream<List<String>>     get rawInfluunt => rawController.stream;
+  StreamSink<List<String>> get rawEffundam => rawController.sink;
 
-  Stream<List<DataBaseStructure>>     get effundam => structureController.stream;
-  StreamSink<List<DataBaseStructure>> get capturam => structureController.sink;
+  Stream<List<DataBaseStructure>>     get influunt => structureController.stream;
+  StreamSink<List<DataBaseStructure>> get effundam => structureController.sink;
 
   int count = 0;
   List<DataBaseStructure> buf = new List<DataBaseStructure>();
 
   LiveDataController() {
-    rawEffundam
+    rawInfluunt
       .transform(DataStreamProvider().streamTransformer())
       .listen((event) {
         for(DataBaseStructure eventObj in event) {
           print("Streamed ${eventObj.title}");
         }
-        capturam.add(event);
+        effundam.add(event);
       }
     );
-
     //effundam.listen((event) { });
   }
 

@@ -1,6 +1,6 @@
 import 'package:Nekomata/DataBase/Controller/LiveDataController.dart';
-import 'package:Nekomata/DataBase/Structure.dart';
 import 'package:Nekomata/Widgets/Screens/details/ViewDetailsScreen/ViewDetailsScreen.dart';
+import 'package:Nekomata/Widgets/Screens/home/Components/ListCardBuilder.dart';
 import 'package:Nekomata/Widgets/Screens/home/Components/Stream/StreamDisplayCard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +10,8 @@ import 'HeaderSearchBox.dart';
 import 'TitleWithViewButtonComp.dart';
 
 class ContentBody extends StatelessWidget {
+  final LiveDataController controller = new LiveDataController();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -23,11 +25,15 @@ class ContentBody extends StatelessWidget {
                   );
                 }),
 
-            StreamProvider<List<DataBaseStructure>>.value(
-              value: LiveDataController().effundam,
-              //initialData: null,
+            ListCardBuilder(size: size, )
+            /*
+            Provider<LiveDataController>.value(
+              value: controller,
+              updateShouldNotify: (before, after) => before != after,
               child: StreamDisplayCard(),
             ),
+
+             */
             //ListCardBuilder(size: size, structure: DataBuffer.structureList),
           ],
         )

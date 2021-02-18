@@ -20,10 +20,10 @@ class APIProvider {
         final HTTP_CLIENT.Response response =
           await HTTP_CLIENT.get(url, headers: {"Content-Type": "application/json"});
         if (_isFineResponse(response)) {
-          NekomataLogger().printInfo("Response!      ", "Status Code: 200 [OK]");
+          NekomataLogger().printInfo("Response!", "Status Code: 200 [OK]");
           completer.complete(response.body);
         } else {
-          NekomataLogger().printErr("Response!      ", "This Response is Abnormal.");
+          NekomataLogger().printErr("Response!", "This Response is Abnormal.");
           completer.complete(null);
         }
         break;
@@ -33,10 +33,10 @@ class APIProvider {
         final HTTP_CLIENT.Response response =
           await HTTP_CLIENT.get(url + channel, headers: {"Content-Type": "application/json"});
         if (_isFineResponse(response)) {
-          NekomataLogger().printInfo("Response!      ", "Status Code: 200 [OK]" + response.body.substring(9, 45));
+          NekomataLogger().printInfo("Response!", "Status Code: 200 [OK]" + response.body.substring(9, 45));
           completer.complete(response.body);
         } else {
-          NekomataLogger().printErr("Response!      ", "This Response is Abnormal.");
+          NekomataLogger().printErr("Response!", "This Response is Abnormal.");
           completer.complete(null);
         }
         break;

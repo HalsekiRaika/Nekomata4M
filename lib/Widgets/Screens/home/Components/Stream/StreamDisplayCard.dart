@@ -14,13 +14,14 @@ class StreamDisplayCard extends StatefulWidget {
 }
 
 class StreamDisplayBLoC extends State<StreamDisplayCard> {
-  StreamDisplayBLoC({Key key, this.size}) : super();
+  StreamDisplayBLoC({Key key, this.size, this.snapshot}) : super();
 
   final Size size;
+  final List<DataBaseStructure> snapshot;
 
   @override
   Widget build(BuildContext context) {
-    final List<DataBaseStructure> snapshot = Provider.of<List<DataBaseStructure>>(context);
+    //final List<DataBaseStructure> snapshot = Provider.of<List<DataBaseStructure>>(context);
     //print(snapshot[0].title);
     return SingleChildScrollView(
       child: SizedBox(
@@ -39,55 +40,12 @@ class StreamDisplayBLoC extends State<StreamDisplayCard> {
                 }
             );
           },
-          itemCount: snapshot != null ? snapshot.length <= 6 ? snapshot.length : 6 : 1,
+          itemCount: snapshot != null ? snapshot.length <= 6 ? snapshot.length : 6 : 1, //　I try changed 0 to 1.
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
         ),
       ),
     );
-
-
-
-    //final LiveDataController bloc = Provider.of<LiveDataController>(context);
-    /*
-    return StreamBuilder<List<DataBaseStructure>>(
-      stream: bloc.effundam,
-      builder: (context, AsyncSnapshot<List<DataBaseStructure>> snapshot) {
-        /*
-        if (snapshot == null) {
-          print("object is null");
-          return SizedBox(
-            height: 150,
-            child: CircularProgressIndicator(),
-          );
-        }
-        */
-        return SingleChildScrollView(
-          child: SizedBox(
-            height: 200,
-            child: ListView.builder(
-              itemBuilder: (BuildContext context, int index) {
-                return TileUpcomingCard(
-                           size: size,
-                       imageUrl: snapshot.data[index].thumbnailData.url,
-                          title: snapshot.data[index].title.substring(0, 7) + "...",
-                    channelName: snapshot.data[index].channelName.substring(0, 8) + "...",
-                      startTime: DateTimeFormat().set(snapshot.data[index].startTime),
-                      countDown: CalcAiringTimeCount().set(snapshot.data[index].startTime),
-                    function: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => LiveDetailsScreen(),));
-                    }
-                );
-              },
-              itemCount: snapshot.data != null ? snapshot.data.length <= 6 ? snapshot.data.length : 6 : 0,
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-            ),
-          ),
-        );
-      }
-    );
-    */
   }
 
   @override

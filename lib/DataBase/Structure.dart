@@ -1,16 +1,21 @@
+import 'package:Nekomata/DataBase/Provider/DataStreamProvider.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'Structure.g.dart';
 
 @JsonSerializable()
 class CacheStructure {
+  final int databaseId;
   final int count;
   final bool canNotification;
+  final DataBase type;
   final DataBaseStructure upcomingStructure;
 
   CacheStructure({
+    this.databaseId,
     this.count,
     this.canNotification,
+    this.type,
     this.upcomingStructure
   });
 

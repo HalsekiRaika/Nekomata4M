@@ -1,0 +1,35 @@
+import 'dart:io';
+
+import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
+
+class CacheProvider {
+  static final int _databaseVersion = 1;
+  static final String _databaseName = "nekomata_local.db";
+  static final String tableName     = "scheduled_live";
+
+  static final CacheProvider cacheProvider = new CacheProvider();
+
+  Database _database;
+
+  Future<Database> get getDatabase async => _database = (_database != null ? _database : await createDatabase());
+
+  Future<Database> createDatabase() async {
+    Directory current = await getApplicationDocumentsDirectory();
+    String    dbPath  = current.path + _databaseName;
+    return await openDatabase(dbPath, version: _databaseVersion, onCreate: initDataBase);
+  }
+
+  /// NotifyCount | Is Notify | LiveData <br></br>
+  /// INTEGER     | INTEGER   | TEXT
+  void initDataBase(Database database, int dbVersion) async {
+    await database.execute(
+      "CREATE TABLE"       + " $tableName" + "(" +
+      "database_id"        + " INTEGER" + " PRIMARY KEY AUTOINCREMENT," +
+      "notify_count"       + " INTEGER" + " NOT NULL," +
+      "can_notification"   + " INTEGER" + " NOT NULL," +
+      "db_type"            + " TEXT"    + " NOT NULL," +
+      "upcoming_structure" + " TEXT"    + " NOT NULL)"
+    );
+  }
+}

@@ -35,13 +35,13 @@ class DataStreamProvider {
   void aggregateRaw(DataBase database) {
     switch(database) {
       case DataBase.HOLOLIVE:
-        _liveSearch(RequestURL.COLLECTION_HOLOLIVE, RequestURL.DATABASE_HOLOLIVE);
+        _liveSearch(RequestURL.CHECK_LIVER_HOLOLIVE, RequestURL.DATABASE_HOLOLIVE);
         break;
       case DataBase.NIJISANJI:
-        _liveSearch(RequestURL.COLLECTION_NIJISANJI, RequestURL.DATABASE_NIJISANJI);
+        _liveSearch(RequestURL.CHECK_LIVER_NIJISANJI, RequestURL.DATABASE_NIJISANJI);
         break;
       case DataBase.ANIMARE:
-        _liveSearch(RequestURL.COLLECTION_ANIMARE, RequestURL.DATABASE_ANIMARE);
+        _liveSearch(RequestURL.CHECK_LIVER_ANIMARE, RequestURL.DATABASE_ANIMARE);
         break;
     }
   }
@@ -62,14 +62,16 @@ class DataStreamProvider {
   }
 
   void initAggregate() {
-    _liveSearch(RequestURL.COLLECTION_NIJISANJI, RequestURL.DATABASE_NIJISANJI);
+    _liveSearch(RequestURL.CHECK_LIVER_NIJISANJI, RequestURL.DATABASE_NIJISANJI);
   }
 
-  void _liveSearch(String collectUrl, String searchUrl) async {
+  /// @params __[checkUrl]__ Use the one with the `CHECK_LIVER` prefix in [RequestURL].
+  /// @params __[databaseUrl]__ Use the one with the `DATABASE` prefix in [RequestURL].
+  void _liveSearch(String checkUrl, String databaseUrl) async {
     List<String> rawDataArray = new List<String>();
-    List<String> requestArray = _TryParser.stringList(await APIProvider.requestSearch(RequestType.ONLY_LIVER, collectUrl));
+    List<String> requestArray = _TryParser.stringList(await APIProvider.requestSearch(RequestType.ONLY_LIVER, checkUrl));
     for (String targetChannel in requestArray) {
-      rawDataArray.add(await APIProvider.requestSearch(RequestType.DETAILS, searchUrl, targetChannel));
+      rawDataArray.add(await APIProvider.requestSearch(RequestType.DETAILS, databaseUrl, targetChannel));
     }
     LiveDataController().rawEffundam.add(rawDataArray);
   }

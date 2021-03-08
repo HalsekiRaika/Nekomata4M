@@ -1,3 +1,5 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
+
 const bool DEBUG_MODE = true;
 
-const String _SERVER = DEBUG_MODE ? "192.168.0.12:8000" : "106.160.163.125:8000";
+final String _SERVER = DEBUG_MODE ? DotEnv.env['LOCAL_SERVER'] : DotEnv.env['PUBLIC_SERVER'];

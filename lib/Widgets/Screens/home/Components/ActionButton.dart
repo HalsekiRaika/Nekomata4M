@@ -11,7 +11,7 @@ class ActionButton {
         return FloatingActionButton(
           backgroundColor: NPrimalColor,
           child: child,
-          onPressed: () { bloc.dataSearch(DataBase.NIJISANJI); }
+          onPressed: () {  }
         );
       },
       child: Icon(Icons.autorenew),

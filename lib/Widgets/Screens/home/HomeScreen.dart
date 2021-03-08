@@ -1,14 +1,17 @@
+import 'package:Nekomata/DataBase/Model/LiveModel.dart';
 import 'package:Nekomata/Widgets/Action/FuncAggregate.dart';
 import 'package:Nekomata/Widgets/Screens/SideBar/SideBar.dart';
 import 'package:Nekomata/Widgets/Screens/home/Components/ContentBody.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
+    final model = Provider.of<LiveModel>(context, listen: true);
     return Scaffold(
       key: _key,
       appBar: AppBar(

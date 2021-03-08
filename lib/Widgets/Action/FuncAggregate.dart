@@ -13,7 +13,7 @@ class FuncAggregate extends StatelessWidget {
       backgroundColor: NPrimalColor,
       child: Icon(Icons.autorenew),
       onPressed: (){
-        DataStreamProvider().aggregateRaw(DataBase.NIJISANJI);
+        //DataStreamProvider().aggregateRaw(DataBase.NIJISANJI);
         //requestUpcomingSearch();
       },
     );

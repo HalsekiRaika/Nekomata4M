@@ -1,4 +1,5 @@
 import 'package:Nekomata/DataBase/Provider/DataStreamProvider.dart';
+import 'package:Nekomata/DataBase/Types/AccessType.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'Structure.g.dart';
@@ -8,8 +9,8 @@ class CacheStructure {
   final int databaseId;
   final int count;
   final bool canNotification;
-  final DataBase type;
-  final DataBaseStructure upcomingStructure;
+  final AccessType type;
+  final String upcomingStructure;
 
   CacheStructure({
     this.databaseId,
@@ -23,6 +24,9 @@ class CacheStructure {
   => _$CacheStructureFromJson(json);
 
   Map<String, dynamic> toJson() => _$CacheStructureToJson(this);
+
+  CacheStructure getDefaultProperty(AccessType type, String baseStructure)
+    => CacheStructure(count: 0, canNotification: false, type: type, upcomingStructure: baseStructure);
 }
 
 class Collection {
@@ -60,6 +64,8 @@ class DataBaseStructure {
 
   factory DataBaseStructure.fromJson(Map<String, dynamic> json)
       => _$DataBaseStructureFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DataBaseStructureToJson(this);
 }
 
 @JsonSerializable()
@@ -72,4 +78,6 @@ class ThumbnailData {
 
   factory ThumbnailData.fromJson(Map<String, dynamic> json)
       => _$ThumbnailDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ThumbnailDataToJson(this);
 }

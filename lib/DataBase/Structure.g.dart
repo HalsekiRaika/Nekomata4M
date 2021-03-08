@@ -11,11 +11,8 @@ CacheStructure _$CacheStructureFromJson(Map<String, dynamic> json) {
       databaseId       : json['database_id']        as int,
       count            : json['notify_count']       as int,
       canNotification  : json['can_notification']   == 1 ? true : false,
-      type             : json['db_type'].toString().getTypeFromString(),
-      upcomingStructure: json['upcoming_structure'] == null
-          ? null
-          : DataBaseStructure.fromJson(
-              json['upcomingStructure'] as Map<String, dynamic>));
+      type             : json['db_type'].toString().getTypeProperty(),
+      upcomingStructure: json['upcoming_structure'] as String);
 }
 
 Map<String, dynamic> _$CacheStructureToJson(CacheStructure instance) =>
@@ -48,7 +45,7 @@ DataBaseStructure _$DataBaseStructureFromJson(Map<String, dynamic> json) {
           : ThumbnailData.fromJson(
               json['thumbnail'] as Map<String, dynamic>));
 }
-/*
+
 Map<String, dynamic> _$DataBaseStructureToJson(DataBaseStructure instance) =>
     <String, dynamic>{
       'id'           : instance.id,
@@ -60,18 +57,17 @@ Map<String, dynamic> _$DataBaseStructureToJson(DataBaseStructure instance) =>
       'startTime'    : instance.startTime,
       'thumbnailData': instance.thumbnailData
     };
-*/
+
 ThumbnailData _$ThumbnailDataFromJson(Map<String, dynamic> json) {
   return ThumbnailData(
       url   : json['url']    as String,
       width : json['width']  as String,
       height: json['height'] as String);
 }
-/*
+
 Map<String, dynamic> _$ThumbnailDataToJson(ThumbnailData instance) =>
     <String, dynamic>{
       'url'   : instance.url,
       'width' : instance.width,
       'height': instance.height
     };
-*/

@@ -9,7 +9,7 @@ class _ClientMsg {
 
 // It will be Deprecated. XP
 
-class NekomataLogger {
+class Logger {
   void printInfo(String status, String msg) {
     _logger(_ClientMsg().information, status.padRight(16), msg);
   }
@@ -27,8 +27,8 @@ class NekomataLogger {
   }
 
   void _logger(String icwe,String status, String msg) {
-    print("[ $icwe ] " +
-        "[ ${DateFormat('MM/dd/yyyy HH:mm:ss').format(DateTime.now())} ] " +
-        "[ $status ] $msg");
+    print("$icwe: " +
+        "${DateFormat('MM-dd HH:mm:ss').format(DateTime.now())}: " +
+        "$status:: $msg");
   }
 }

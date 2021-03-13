@@ -25,16 +25,13 @@ dependencies:
     sdk: flutter
   flutter:
     sdk: flutter
-  flutter_svg: ^0.20.0-nullsafety.3
   intl: ^0.17.0
   http: ^0.13.0
   json_annotation: 3.1.1
   url_launcher: ^5.7.5
-  flutter_bloc: ^6.1.2
   path_provider: ^1.6.27
   provider: ^4.3.3
   sqflite: ^2.0.0
-  bloc: ^6.1.1
   flutter_dotenv: ^3.1.0
 
   # The following adds the Cupertino Icons font to your application.
@@ -46,12 +43,15 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^1.11.3
   json_serializable: 3.5.1
-  #flutter_launcher_icons: ^0.8.0
+  flutter_launcher_icons: ^0.9.0
 
-#flutter_icons:
-#  android: "launcher_icon"
-#  ios: true
-#  image_path: "assets/icons/app_icon.png"
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: 'assets/icons/app/app_icon.png'
+  adaptive_icon_background: 'assets/icons/app/app_icon_background.png'
+  adaptive_icon_foreground: 'assets/icons/app/app_icon_foreground.png'
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -60,11 +60,13 @@ flutter:
   assets:
     - assets/NekomataF.svg
     - assets/icons/menubutton.svg
-    - assets/icons/app_icon.png
+    - assets/icons/app/app_icon.png
     - assets/images/NotFound.jpg
     - assets/logo/Hololive_Logo.png
     - assets/logo/Nijisanji_Logo.png
     - assets/.env
+    - assets/icons/app/app_icon_background.png
+    - assets/icons/app/app_icon_foreground.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

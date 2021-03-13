@@ -6,7 +6,7 @@ import 'package:nekomata/database/database.dart';
 /// Using StreamTransformer, raw data retrieved from WebAPI is sequentially
 /// transformed into data to be stored in LocalDB and stored.
 //  ============================================================
-///  WebAPI              ScheduledData             localdb
+//   WebAPI              ScheduledData             localdb
 /// [String] >>Decode>> [UpcomingObject] >>Wrap>> [CachedObject]
 //  ============================================================
 //

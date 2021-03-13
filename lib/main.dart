@@ -1,18 +1,18 @@
-import 'package:Nekomata/DataBase/Model/CollectorModel.dart';
 import 'package:Nekomata/Widgets/Router/NekomataRouter.dart';
 import 'package:Nekomata/Constants.dart';
 import 'package:Nekomata/Widgets/Screens/splash/SplashScreen.dart';
+import 'package:Nekomata/database_v2/model/model_request_type.dart';
 import 'package:Nekomata/widget_v2/screen/screen_with_navi.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 
 import 'DataBase/Model/LiveModel.dart';
-import 'DataBase/Model/ScreenModel.dart';
+import 'database_v2/model/models.dart';
 
 
-Future main() async {
-  await DotEnv.load();
+Future<void> main() async {
+  await DotEnv.load(fileName: 'assets/.env');
   runApp(NekomataV2());
 } //runApp(Nekomata());
 
@@ -20,14 +20,14 @@ class NekomataV2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
-      ChangeNotifierProvider<ScreenModel>(
-          create: (context) => ScreenModel()
+      ChangeNotifierProvider<ModelScreenState>(
+          create: (context) => ModelScreenState()
       ),
-      ChangeNotifierProvider<LiveModel>(
-          create: (context) => LiveModel()
+      ChangeNotifierProvider<ModelScheduledLive>(
+          create: (context) => ModelScheduledLive()
       ),
-      ChangeNotifierProvider<CollectorModel>(
-          create: (context) => CollectorModel()
+      ChangeNotifierProvider<ModelRequestType>(
+          create: (context) => ModelRequestType()
       )
     ],
       child: MaterialApp(

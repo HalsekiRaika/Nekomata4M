@@ -9,19 +9,19 @@ class CollectorModel with ChangeNotifier {
   void changeAccessType(AccessType accessType) {
     _accessType = accessType;
     notifyListeners();
-    Logger().printInfo(
+    Logger.printInfo(
         "access_type", "Change type: ${accessType.toString()}");
   }
 
   void changeAccessTypeFromIndex(int index) {
     AccessType type = AccessType.values.where((t) => t.index == index).toList()[0];
     notifyListeners();
-    Logger().printInfo(
+    Logger.printInfo(
         "access_type", "Change type: ${type.toString()}");
   }
 
   AccessType getAccessType() {
-    Logger().printInfo(
+    Logger.printInfo(
         "access_type", "Get AccessType: $getAccessTypeIndex");
     return _accessType;
   }

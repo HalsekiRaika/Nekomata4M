@@ -29,6 +29,7 @@ class CacheStructure {
     => CacheStructure(count: 0, canNotification: false, type: type, upcomingStructure: baseStructure);
 }
 
+@JsonSerializable()
 class Collection {
   final List<String> collect;
 

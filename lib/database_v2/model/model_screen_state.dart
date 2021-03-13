@@ -4,7 +4,7 @@ import 'package:Nekomata/widget_v2/screen/home/screen_notification.dart';
 import 'package:Nekomata/widget_v2/screen/home/screen_topic.dart';
 import 'package:flutter/material.dart';
 
-class ScreenModel with ChangeNotifier {
+class ModelScreenState with ChangeNotifier {
   final List<Widget> _screens = [
     ScreenTopic(),
     ScreenFavorite(),

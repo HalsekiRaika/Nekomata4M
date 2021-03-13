@@ -63,7 +63,7 @@ class _TryParser {
     try {
       decodeObjects = jsonDecode(targetString);
     } catch (excp) {
-      Logger().printErr("Refactor Result", "情報の正規化に失敗しました。");
+      Logger.printErr("Refactor Result", "情報の正規化に失敗しました。");
     }
 
     for (Map<dynamic, dynamic> item in decodeObjects) {
@@ -80,7 +80,7 @@ class _TryParser {
     try {
       decodeObjects = jsonDecode(targetString);
     } catch (excp) {
-      Logger().printErr("Refactor Result", "情報の正規化に失敗しました。");
+      Logger.printErr("Refactor Result", "情報の正規化に失敗しました。");
     }
 
     //NekomataLogger().printInfo("Refactor Result", "情報の正規化が終了しました。");

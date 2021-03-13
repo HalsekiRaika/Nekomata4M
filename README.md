@@ -1,4 +1,4 @@
-![](assets/NekomataF.svg)
+![](assets/NekomataF_extend.svg)
 
 # Nekomata For Mobile
 

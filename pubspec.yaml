@@ -1,4 +1,4 @@
-name: Nekomata
+name: nekomata
 description: VTuber scheduled live quick notifier (as more fast broadcast standby)
 
 # The following line prevents the package from being accidentally published to
@@ -46,6 +46,12 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^1.11.3
   json_serializable: 3.5.1
+  #flutter_launcher_icons: ^0.8.0
+
+#flutter_icons:
+#  android: "launcher_icon"
+#  ios: true
+#  image_path: "assets/icons/app_icon.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -54,6 +60,7 @@ flutter:
   assets:
     - assets/NekomataF.svg
     - assets/icons/menubutton.svg
+    - assets/icons/app_icon.png
     - assets/images/NotFound.jpg
     - assets/logo/Hololive_Logo.png
     - assets/logo/Nijisanji_Logo.png

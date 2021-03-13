@@ -1,5 +1,6 @@
-import 'package:Nekomata/database_v2/extractor/ext_thumbnail_url.dart';
-import 'package:Nekomata/database_v2/structures/structures.dart';
+
+import 'package:nekomata/database/extractor/extractor.dart';
+import 'package:nekomata/database/structures/structures.dart';
 import 'package:flutter/material.dart';
 
 class LargeLiveViewCard extends StatelessWidget {
@@ -8,11 +9,12 @@ class LargeLiveViewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    //final size = MediaQuery.of(context).size;
     return Container(
-      height: size.height / 2,
-      width: size.width,
+      //height: size.height / 2,
+      //width: size.width,
       decoration: BoxDecoration(
+        color: Colors.greenAccent,
         borderRadius: BorderRadius.all(
           Radius.circular(10.0)
         )
@@ -29,8 +31,11 @@ class LargeLiveViewCard extends StatelessWidget {
           ),
           Row(
             children: [
-              Text(upcomingObj.title.substring(0, 10), style: TextStyle(fontSize: 11)),
-              Text(upcomingObj.startTime, style: TextStyle(fontSize: 11))
+              Container(
+                child: Text(
+                    upcomingObj.title.substring(0, 12),
+                    style: TextStyle(fontSize: 14))),
+              Text(upcomingObj.startTime, style: TextStyle(fontSize: 14))
             ],
           ),
           // <<<<<<<<<

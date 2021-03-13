@@ -1,4 +1,4 @@
-import 'package:Nekomata/widget_v2/custom/tiles/selectable_tile_item.dart';
+import 'package:nekomata/widget_v2/custom/tiles/selectable_tile_item.dart';
 import 'package:flutter/material.dart';
 
 class SelectableListTile extends StatefulWidget {

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:nekomata/database/database.dart';
 import 'package:nekomata/widget_v2/screen/components/cards/large_live_view_card.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class ScreenTopic extends StatelessWidget {
       body: Container(
         child: ListView.separated(
           separatorBuilder: (BuildContext context, int index) {
-            return Divider(height: 6.0, thickness: 0.01,);
+            return Divider(height: 20.0, thickness: 0.01,);
           },
           itemBuilder: (context, index) {
             return LargeLiveViewCard(

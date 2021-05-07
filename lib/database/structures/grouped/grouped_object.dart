@@ -5,4 +5,8 @@ class Grouped<T> {
   final T object;
 
   const Grouped(this.groupedTag, this.object);
+
+  static Grouped<T> of<T>(ProductType tag, T object) {
+    return new Grouped<T>(tag, object);
+  }
 }

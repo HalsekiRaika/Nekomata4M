@@ -22,3 +22,7 @@ extension StringToProductType on String {
     return dbType;
   }
 }
+
+class ProductMaps {
+  static Map<ProductType, String> get getProductTypeMap => ProductTypeToString._typeNames;
+}

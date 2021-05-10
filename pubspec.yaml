@@ -16,8 +16,8 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 
-version: 0.4.0
-# Version Number for: Release/Major/Patch
+version: 0.5.0-Beta
+# Version Number for: Release/Major/Patch - Code
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -62,6 +62,7 @@ flutter:
   assets:
     - assets/icons/app/app_icon.png
     - assets/images/NotFound.jpg
+    - assets/images/DummyThumbnail.png
     - assets/logo/Hololive_Logo.png
     - assets/logo/Nijisanji_Logo.png
     - assets/.env

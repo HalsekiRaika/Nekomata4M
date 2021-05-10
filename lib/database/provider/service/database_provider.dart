@@ -7,8 +7,8 @@ import 'package:http/http.dart' as HTTP;
 import 'package:nekomata/database/settings.dart' as Settings;
 
 class DataBaseProvider {
-  Future<void> onRequest(ProductType type) async {
-    print(Settings.getServerUrl);
+  static Future<void> onRequest(ProductType type) async {
+    //print(Settings.getServerUrl);
     switch (type) {
       case ProductType.HOLOLIVE:
         await _requestHandler(ProductType.HOLOLIVE.getStringProperty);
@@ -23,7 +23,13 @@ class DataBaseProvider {
     //await CacheStream.dispose();
   }
 
-  Future<void> _requestHandler(String dbName) async {
+  static Future<void> onRequestAll() async {
+    ProductMaps.getProductTypeMap.forEach((key, value) async {
+      await _requestHandler(value);
+    });
+  }
+
+  static Future<void> _requestHandler(String dbName) async {
     CacheStream stream = new CacheStream();
     ModelScheduledLive().deleteAll();
     stream.wakeUp();
@@ -32,13 +38,13 @@ class DataBaseProvider {
         .onError((error, stackTrace) => null));
     await for (String collName in liver) {
       String result = await _getRawDetailData(dbName, collName);
-      Grouped<String> wrapped = new Grouped(dbName.getProductTypeProperty(), result);
+      Grouped<String> wrapped = Grouped.of(dbName.getProductTypeProperty(), result);
       stream.inputRawStream.add(wrapped);
     }
     //await stream.dispose();
   }
 
-  Future<String> _getLiverRawData(String dbName) async {
+  static Future<String> _getLiverRawData(String dbName) async {
     HTTP.Response res = await HTTP.get(
       await Settings.buildServerCheckUrl(dbName),
       headers: {"Content-Type": "application/json"}
@@ -49,7 +55,7 @@ class DataBaseProvider {
         : Future<String>.value(res.body);
   }
 
-  Future<String> _getRawDetailData(String dbName, String collName) async {
+  static Future<String> _getRawDetailData(String dbName, String collName) async {
     HTTP.Response res = await HTTP.get(
       await Settings.buildServerCollUrl(dbName, collName),
       headers: {"Content-Type": "application/json"}

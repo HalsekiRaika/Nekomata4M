@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:nekomata/Logger/NekomataLogger.dart';
 import 'package:nekomata/database/database.dart';
 
-/// Using StreamTransformer, raw data retrieved from WebAPI is sequentially
-/// transformed into data to be stored in LocalDB and stored.
+/// Using StreamTransformer, raw data retrieved from WebAPI is sequentially <br></br>
+/// transformed into data to be stored in LocalDB and stored.<br></br>
 //  ============================================================
 //   WebAPI              ScheduledData             localdb
 /// [String] >>Decode>> [UpcomingObject] >>Wrap>> [CachedObject]
